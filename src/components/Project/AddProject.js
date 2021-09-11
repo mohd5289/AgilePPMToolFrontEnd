@@ -86,6 +86,7 @@ if(nextProps.errors){
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectIdentifier}</p>
                   </div>
                   <div className="form-group">
                     <textarea
@@ -95,6 +96,7 @@ if(nextProps.errors){
                       value={this.state.description}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectDescription}</p>
                   </div>
                   <h6>Start Date</h6>
                   <div className="form-group">
@@ -105,6 +107,7 @@ if(nextProps.errors){
                       value={this.state.start_date}
                       onChange={this.onChange}
                     />
+                    <p>{errors.start_date}</p>
                   </div>
                   <h6>Estimated End Date</h6>
                   <div className="form-group">
@@ -115,6 +118,7 @@ if(nextProps.errors){
                       value={this.state.end_date}
                       onChange={this.onChange}
                     />
+                     <p>{errors.end_date}</p>
                   </div>
 
                   <input
