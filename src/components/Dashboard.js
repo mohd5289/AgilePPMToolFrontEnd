@@ -10,6 +10,7 @@ componentDidMount(){
   this.props.getProjects()
 }
   render() {
+    const {projects} = this.props.project
     return (
       <div className="projects">
         <div className="container">
@@ -21,7 +22,10 @@ componentDidMount(){
 
               <br />
               <hr />
-              <ProjectItem />
+             { projects.map(project=>
+              <ProjectItem key={project.id} project={project}/>
+             )
+              }
             </div>
           </div>
         </div>
@@ -34,8 +38,8 @@ project:PropTypes.object.isRequired,
 getProjects:PropTypes.func.isRequired
 }
 const mapStateToProps= state =>({
-  project:state.project,
+  project:state.projects
 })
 
 
-export default connect(null,{getProjects})(Dashboard);
+export default connect(mapStateToProps,{getProjects})(Dashboard);
