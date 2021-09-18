@@ -8,12 +8,12 @@ class AddProject extends Component {
     super();
 
     this.state = {
-      "projectName": "",
-      "projectIdentifier": "",
-      "description": "",
-      "start_date": "",
-      "end_date": "",
-      errors:{}
+      projectName: "",
+      projectIdentifier: "",
+      description: "",
+      start_date: "",
+      end_date: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
@@ -43,7 +43,7 @@ if(nextProps.errors){
   }
 
   render() {
-    const {errors} = this.state;
+    const {errors} = this.state
     
     
     return (
@@ -69,7 +69,7 @@ if(nextProps.errors){
                   <div className="form-group">
                     <input
                       type="text"
-                      className={classnames("form-control form-control-lg ",{"is-invalid":errors.projectName})}
+                      className={classnames("form-control form-control-lg",{"is-invalid":errors.projectName})}
                       placeholder="Project Name"
                       name="projectName"
                       value={this.state.projectName}

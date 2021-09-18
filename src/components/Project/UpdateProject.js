@@ -12,13 +12,17 @@ constructor(){
       "projectIdentifier": "",
       "description": "",
       "start_date": "",
-      "end_date": ""
+      "end_date": "",
+      errors:{}
       
     }
 }
 
 componentWillReceiveProps(nextProps){
- const{id,
+ if(nextProps.errors){
+   this.setState({errors:nextProps.errors})
+ }
+  const{id,
     projectName,
     projectIdentifier,
     description,
@@ -47,6 +51,7 @@ onSubmit=(e)=>{
     this.props.createProject(updateProject,this.props.history);
 }
     render() {
+      const {errors}=this.state;
         return (
             <div className="project">
         <div className="container">
@@ -58,17 +63,20 @@ onSubmit=(e)=>{
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg "
+                    className={classnames("form-control form-control-lg ",
+                   {"is-invalid":errors.projectName})}
                     placeholder="Project Name"
                     name="projectName"
                     value={this.state.projectName}
                     onChange={this.onChange}
                   />
+                  {errors.projectName && (<div className="invalid-feedback">{errors.projectName}</div>)}
                 </div>
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg ",
+                    {"is-invalid":errors.projectIdentifier})}
                     placeholder="Unique Project ID"
                     name= "projectIdentifier"
                     value={this.state.projectIdentifier}
@@ -76,15 +84,18 @@ onSubmit=(e)=>{
                     disabled
 
                   />
+                  {errors.projectIdentifier && (<div className="invalid-feedback">{errors.projectIdentifier}</div>)}
                 </div>
                 <div className="form-group">
                   <textarea
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg ",
+                    {"is-invalid":errors.description})}
                     placeholder="Project Description"
                     name= "description"
                     value={this.state.description}
                     onChange={this.onChange}
                   />
+                {errors.description &&(<div className="invalid-feedback">{errors.description}</div>)}
                 </div>
                 <h6>Start Date</h6>
                 <div className="form-group">
@@ -122,10 +133,12 @@ onSubmit=(e)=>{
 UpdateProject.propTypes={
     getProject:PropTypes.func.isRequired,
     project:PropTypes.object.isRequired,
-    createProject:PropTypes.func.isRequired
+    createProject:PropTypes.func.isRequired,
+    errors:PropTypes.object.isRequired
 }
 const mapStateToProps= state =>({
-    project: state.projects.project
+    project: state.projects.project,
+    errors:state.errors
 })
 
 export default connect(mapStateToProps,{getProject,createProject})(UpdateProject);
