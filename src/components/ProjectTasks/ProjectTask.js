@@ -1,28 +1,45 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
+import {deleteProjectTask} from "../../actions/backlogActions";
+import {connect} from "react-redux";
 
 class ProjectTask extends Component {
+
+onDeleteClick=(backlog_id,pt_id)=>{
+this.props.deleteProjectTask(backlog_id,pt_id);
+}
     render() {
         const {project_task} = this.props;
+   let priorityString;
+   let priorityClass;
 
-
-        return (
+   if(project_task.priority===1){
+       priorityClass= "bg-danger text_light"
+       priorityString="HIGH"
+   }
+    
+   if(project_task.priority===3){
+    priorityClass= "bg-info text_light"
+    priorityString="LOW"
+}
+   return (
             <div>
             {/* <!-- SAMPLE PROJECT TASK STARTS HERE --> */}
             <div className="card mb-1 bg-light">
 
-<div className="card-header text-primary">
-    ID: {project_task.projectSequence} -- Priority: {" "} {project_task.priorityString}
+<div className={`card-header text-primary ${priorityClass}`}>
+    ID: {project_task.projectSequence} -- Priority: {priorityString} 
 </div>
 <div className="card-body bg-light">
-    <h5 className="card-title">project_task.summary</h5>
+    <h5 className="card-title">{project_task.summary}</h5>
     <p className="card-text text-truncate ">
        {project_task.acceptanceCriteria}
     </p>
-    <a href=""className="btn btn-primary">
+    <Link to={`/updateProjectTask/${project_task.projectIdentifier}/${project_task.projectSequence}`}className="btn btn-primary">
         View / Update
-    </a>
+    </Link>
 
-    <button className="btn btn-danger ml-4">
+    <button className="btn btn-danger ml-4" onClick={this.onDeleteClick(project_task.projectIdentifier,project_task.projectSequence)}>
         Delete
     </button>
 </div>
@@ -32,5 +49,9 @@ class ProjectTask extends Component {
         );
     }
 }
+ProjectTask.propTypes={
+    deleteProjectTask:PropTypes.func.isRequired
 
-export default ProjectTask;
+}
+
+export default connect(null,{deleteProjectTask})(ProjectTask);

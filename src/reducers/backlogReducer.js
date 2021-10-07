@@ -21,7 +21,7 @@ switch(action.type){
       case DELETE_PROJECT_TASK:
           return{
               ...state,
-              project_tasks:action.payload
+              project_tasks:state.project_task.filter(project_task =>project_task.projectSequence !==action.payload)
           }
 
 
