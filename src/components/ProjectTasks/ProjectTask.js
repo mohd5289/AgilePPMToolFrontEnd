@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from "react-router-dom";
 import {deleteProjectTask} from "../../actions/backlogActions";
 import {connect} from "react-redux";
+import PropTypes from "prop-types"
 
 class ProjectTask extends Component {
 

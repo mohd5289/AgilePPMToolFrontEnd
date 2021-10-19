@@ -31,7 +31,7 @@ export const getProjectTask = (backlog_id,pt_id,history)=> async dispatch=>{
 
 export const getBacklog= backlog_id => async dispatch =>{
     try{
-        const res = await axios.get(`http://localhost:8050/api/backlog/${backlog_id}`);
+        const res = await axios.get(`https://agile-int-ppm-tool.herokuapp.com/api/backlog/${backlog_id}`);
     dispatch({
         type:GET_BACKLOG,
         payload: res.data
@@ -48,7 +48,7 @@ export const getBacklog= backlog_id => async dispatch =>{
 export const updateProjectTask=(backlog_id, pt_id, project_task, history)=>async dispatch=>{
 
     try {
-        const res = await axios.patch(`/api/backlog/${backlog_id}/${pt_id}`,project_task)
+        const res = await axios.patch(`https://agile-int-ppm-tool.herokuapp.com/api/backlog/${backlog_id}/${pt_id}`,project_task)
         history.push(`/projectBoard/${backlog_id}`)
         dispatch({
             type:GET_ERRORS,
@@ -64,7 +64,7 @@ export const updateProjectTask=(backlog_id, pt_id, project_task, history)=>async
 
 export const deleteProjectTask=(backlog_id, pt_id)=> async dispatch =>{
     if(window.confirm(`You are deleting project task ${pt_id},this cannot be undone`)){
-        await axios.delete(`/api/backlog/${backlog_id}${pt_id}`);
+        await axios.delete(`https://agile-int-ppm-tool.herokuapp.com/api/backlog/${backlog_id}${pt_id}`);
         dispatch({
             type:DELETE_PROJECT_TASK,
             payload:pt_id
